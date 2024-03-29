@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Counter - Customer View</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="customer-view">
+      <div class="frame">
+        <div class="status">
+          Now Serving: <span id="nowServing">-</span>
+        </div>
+        <div class="status">
+          Last Number: <span id="lastNumber">-</span>
+        </div>
+        <button onclick="takeNumber()">Take a Number</button>
+      </div>
+      <div class="counter">
+        <div id="counter1" class="frame">
+          <div class="status">Counter 1</div>
+          <div class="status">Status: <span id="counter1Status">Offline</span></div>
+          <div class="status">Current Num: <span id="counter1Num">-</span></div>
+        </div>
+        <div id="counter2" class="frame">
+          <div class="status">Counter 2</div>
+          <div class="status">Status: <span id="counter2Status">Offline</span></div>
+          <div class="status">Current Num: <span id="counter2Num">-</span></div>
+        </div>
+        <div id="counter3" class="frame">
+          <div class="status">Counter 3</div>
+          <div class="status">Status: <span id="counter3Status">Offline</span></div>
+          <div class="status">Current Num: <span id="counter3Num">-</span></div>
+        </div>
+        <div id="counter4" class="frame">
+          <div class="status">Counter 4</div>
+          <div class="status">Status: <span id="counter4Status">Offline</span></div>
+          <div class="status">Current Num: <span id="counter4Num">-</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/scripts/customer.js"></script>
+  <script src="/scripts/counter.js"></script>
+</body>
+</html>

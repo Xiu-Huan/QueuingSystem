@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Counter - Counter Management</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="manager-view">
+      <div class="counter">
+        <div class="counter-container">
+          <div id="counter1" class="frame">
+            <h2>Counter 1</h2> <!-- Counter 1 header -->
+            <div class="counter-buttons">
+              <button onclick="toggleStatus(1)">Go Offline</button>
+              <button onclick="completeCurrent(1)">Complete Current</button>
+              <button onclick="callNext(1)">Call Next</button>
+            </div>
+          </div>
+        </div>
+        <div class="counter-container">
+          <div id="counter2" class="frame">
+            <h2>Counter 2</h2> <!-- Counter 2 header -->
+            <div class="counter-buttons">
+              <button onclick="toggleStatus(2)">Go Offline</button>
+              <button onclick="completeCurrent(2)">Complete Current</button>
+              <button onclick="callNext(2)">Call Next</button>
+            </div>
+          </div>
+        </div>
+        <div class="counter-container">
+          <div id="counter3" class="frame">
+            <h2>Counter 3</h2> <!-- Counter 3 header -->
+            <div class="counter-buttons">
+              <button onclick="toggleStatus(3)">Go Offline</button>
+              <button onclick="completeCurrent(3)">Complete Current</button>
+              <button onclick="callNext(3)">Call Next</button>
+            </div>
+          </div>
+        </div>
+        <div class="counter-container">
+          <div id="counter4" class="frame">
+            <h2>Counter 4</h2> <!-- Counter 4 header -->
+            <div class="counter-buttons">
+              <button onclick="toggleStatus(4)">Go Offline</button>
+              <button onclick="completeCurrent(4)">Complete Current</button>
+              <button onclick="callNext(4)">Call Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/scripts/counter.js"></script>
+  <script src="/scripts/customer.js"></script>
+</body>
+</html>

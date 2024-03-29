@@ -1,0 +1,183 @@
+Encapsulation with Iterator Pattern: Instead of directly exposing the internal array, encapsulate it and provide an iterator to iterate over the elements. This hides the internal implementation details and provides a clean interface for accessing elements.
+
+Factory Method Pattern: Introduce a factory method to create instances of the queues. This allows for flexibility in creating different types of queues without exposing the constructors directly.
+
+Strategy Pattern for Queue Type: Implement a strategy pattern to handle different queue types (FIFO and LIFO) more flexibly. This allows the client code to switch between queue types easily without modifying the existing code.
+
+Null Object Pattern for Empty Queue: Instead of throwing an exception when trying to dequeue from an empty queue, return a null object representing an empty queue. This eliminates the need for error handling in the client code and simplifies the usage.
+
+Immutable Queue: Implement an immutable version of the queue where enqueue and dequeue operations return a new instance of the queue instead of modifying the existing one. This ensures thread safety and makes the code easier to reason about in concurrent scenarios.
+
+
+import java.util.Iterator;
+
+// Define the Queue interface
+interface Queue<T> {
+    Queue<T> enqueue(T value);
+    T dequeue();
+    Iterator<T> iterator();
+    int size();
+}
+
+// Define the abstract Queue implementation
+abstract class AbstractQueue<T> implements Queue<T> {
+    protected int size;
+
+    @Override
+    public int size() {
+        return size;
+    }
+}
+
+// Define the Iterator interface
+interface QueueIterator<T> {
+    boolean hasNext();
+    T next();
+}
+
+// Define the concrete Iterator implementation
+class ArrayQueueIterator<T> implements QueueIterator<T> {
+    private T[] array;
+    private int index;
+
+    public ArrayQueueIterator(T[] array) {
+        this.array = array;
+        this.index = 0;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return index < array.length;
+    }
+
+    @Override
+    public T next() {
+        return array[index++];
+    }
+}
+
+// Define the Factory for creating queues
+class QueueFactory {
+    public static <T> Queue<T> createQueue(QueueType type) {
+        switch (type) {
+            case FIFO:
+                return new FIFOQueue<>();
+            case LIFO:
+                return new LIFOQueue<>();
+            default:
+                throw new IllegalArgumentException("Unsupported queue type");
+        }
+    }
+}
+
+// Define the enum for Queue types
+enum QueueType {
+    FIFO,
+    LIFO
+}
+
+// Define the FIFO Queue implementation
+class FIFOQueue<T> extends AbstractQueue<T> {
+    private T[] array;
+    private int head;
+    private int tail;
+
+    public FIFOQueue() {
+        array = (T[]) new Object[10]; // Initial capacity
+        head = 0;
+        tail = 0;
+        size = 0;
+    }
+
+    @Override
+    public Queue<T> enqueue(T value) {
+        if (tail == array.length) {
+            resizeArray();
+        }
+        array[tail++] = value;
+        size++;
+        return this;
+    }
+
+    @Override
+    public T dequeue() {
+        if (size == 0) {
+            return null; // Empty queue
+        }
+        T value = array[head];
+        head++;
+        size--;
+        return value;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayQueueIterator<>(array);
+    }
+
+    private void resizeArray() {
+        T[] newArray = (T[]) new Object[array.length * 2];
+        System.arraycopy(array, 0, newArray, 0, size);
+        array = newArray;
+    }
+}
+
+// Define the LIFO Queue implementation
+class LIFOQueue<T> extends AbstractQueue<T> {
+    private T[] array;
+    private int top;
+
+    public LIFOQueue() {
+        array = (T[]) new Object[10]; // Initial capacity
+        top = -1;
+        size = 0;
+    }
+
+    @Override
+    public Queue<T> enqueue(T value) {
+        if (top == array.length - 1) {
+            resizeArray();
+        }
+        array[++top] = value;
+        size++;
+        return this;
+    }
+
+    @Override
+    public T dequeue() {
+        if (size == 0) {
+            return null; // Empty queue
+        }
+        T value = array[top--];
+        size--;
+        return value;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayQueueIterator<>(array);
+    }
+
+    private void resizeArray() {
+        T[] newArray = (T[]) new Object[array.length * 2];
+        System.arraycopy(array, 0, newArray, 0, size);
+        array = newArray;
+    }
+}
+
+// Example usage:
+public class Main {
+    public static void main(String[] args) {
+        Queue<Integer> fifoQueue = QueueFactory.createQueue(QueueType.FIFO);
+        fifoQueue.enqueue(1).enqueue(2).enqueue(3);
+        for (Integer value : fifoQueue) {
+            System.out.println(value); // Output: 1, 2, 3
+        }
+
+        Queue<Integer> lifoQueue = QueueFactory.createQueue(QueueType.LIFO);
+        lifoQueue.enqueue(1).enqueue(2).enqueue(3);
+        for (Integer value : lifoQueue) {
+            System.out.println(value); // Output: 3, 2, 1
+        }
+    }
+}

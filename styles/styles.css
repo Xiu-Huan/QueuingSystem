@@ -1,0 +1,41 @@
+/* Basic styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .frame {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+  }
+  .counter-buttons button {
+    margin: 5px;
+  }
+  .status {
+    margin-bottom: 5px;
+  }
+  .counter {
+    display: flex;
+  }
+  
+  .counter-container {
+    margin: 0 10px;
+  }
+  
+  .counter-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+ 
+  .offline {
+    color: grey;
+  }
+  .online {
+    color: green;
+  }
+  .serving {
+    color: red;
+  }
